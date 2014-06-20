@@ -19,7 +19,7 @@ synopsis:            Word Count implemented in Haskell
 -- description:         
 
 -- The license under which the package is released.
-license:             PublicDomain
+license:             BSD
 
 -- The file containing the license text.
 license-file:        LICENSE
