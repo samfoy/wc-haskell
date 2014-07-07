@@ -1,9 +1,11 @@
 module Main(main) where
 
 import System.Environment
+import Data.Maybe
+--import Data.Map (Map)
 --import qualified Data.Map as Map
 
---options :: Map.Map Char (String -> Int)
+--options :: Map Char (String -> Int)
 --options = Map.fromList[
 --	('c',charCount),
 --	('l',lineCount),
@@ -12,14 +14,12 @@ import System.Environment
 main :: IO ()
 main = do
 	args <- getArgs
-	if null args
-		then interact $ compose [charCount, lineCount, wordCount]
-	else
-		case head args of
-			"-c" -> interact $ compose [charCount]
-			"-l" -> interact $ compose [lineCount]
-			"-w" -> interact $ compose [wordCount]
-			_ -> usage
+	case listToMaybe args of
+		Nothing -> interact $ compose [charCount, lineCount, wordCount]
+		Just "-c" -> interact $ compose [charCount]
+		Just "-l" -> interact $ compose [lineCount]
+		Just "-w" -> interact $ compose [wordCount]
+		_ -> usage
 
 usage :: IO ()
 usage = putStrLn "Usage: wc [-clw] [file,...]"
